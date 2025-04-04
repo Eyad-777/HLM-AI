@@ -538,7 +538,6 @@ section .container {
 .confidence-low {
   border-left: 3px solid #8B4513; 
 }
-/* أضف هذا في نهاية ملف الـ CSS */
 .message_content .text strong {
   font-weight: bold;
   color: var(--primary-color);
