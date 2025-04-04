@@ -98,6 +98,11 @@ const highlightKeywords = (text) => {
     return processedText;
 };
 
+// New function to format bold text
+const formatBoldText = (text) => {
+    return text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+};
+
 const genrateAPIResponse = async (div) => {
     const textElement = div.querySelector('.text');
     const userMessage = textElement.textContent;
@@ -164,8 +169,8 @@ const genrateAPIResponse = async (div) => {
 };
 
 const showBotResponse = (responseText) => {
-    // Highlight keywords
-    const highlightedText = highlightKeywords(responseText);
+    // Highlight keywords and format bold text
+    const formattedText = formatBoldText(highlightKeywords(responseText));
 
     // Determine confidence class based on level
     const confidenceClass = `confidence-${confidenceLevel}`;
@@ -173,7 +178,7 @@ const showBotResponse = (responseText) => {
     const html = `
     <div class="message_content">
         <img src="Robot.png" alt="">
-        <p class="text ${confidenceClass}">${highlightedText}</p>
+        <p class="text ${confidenceClass}">${formattedText}</p>
     </div>
     <span class="material-symbols-outlined copy-btn">
         content_copy
@@ -264,7 +269,7 @@ const handleOutGoingChat = () => {
     const div = document.createElement('div');
     div.classList.add('message', 'outgoing');
     div.innerHTML = html;
-    div.querySelector('.text').textContent = userMessage;
+    div.querySelector('.text').innerHTML = formatBoldText(userMessage);
     chat_list.appendChild(div);
 
     // Add appearance animation with small delay
